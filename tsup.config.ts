@@ -1,46 +1,42 @@
 import { defineConfig } from 'tsup';
 import { version } from './package.json';
 
-export default defineConfig({
-  // Entry points
-  entry: ['src/index.ts'],
-
-  // Output formats
-  format: ['cjs', 'esm'],
-
-  // Generate .d.ts files
-  dts: true,
-
-  // Source maps for debugging
-  sourcemap: true,
-
-  // Clean output directory before build
-  clean: true,
-
-  // Minify output
-  minify: true,
-
-  // Split code (tree-shaking friendly)
-  splitting: false,
-
-  // Bundle dependencies (we have zero runtime deps)
-  external: [],
-
-  // Target environment
-  target: 'es2020',
-
-  // Inject version from package.json at build time
-  define: {
-    __SDK_VERSION__: JSON.stringify(version),
+export default defineConfig([
+  // NPM build (CommonJS + ESM)
+  {
+    entry: ['src/index.ts'],
+    format: ['cjs', 'esm'],
+    dts: true,
+    sourcemap: true,
+    clean: true,
+    minify: true,
+    splitting: false,
+    external: [],
+    target: 'es2020',
+    define: {
+      __SDK_VERSION__: JSON.stringify(version),
+    },
+    outExtension({ format }) {
+      return {
+        js: format === 'cjs' ? '.cjs' : '.mjs',
+      };
+    },
   },
-
-  // Output file naming
-  outExtension({ format }) {
-    return {
-      js: format === 'cjs' ? '.cjs' : '.mjs',
-    };
+  // CDN build (IIFE for <script> tags)
+  {
+    entry: { 'embed-sdk.umd': 'src/index.ts' },
+    format: ['iife'],
+    globalName: 'ChaindocEmbed',
+    sourcemap: true,
+    minify: true,
+    splitting: false,
+    external: [],
+    target: 'es2020',
+    define: {
+      __SDK_VERSION__: JSON.stringify(version),
+    },
+    outExtension() {
+      return { js: '.js' };
+    },
   },
-
-  // Additional UMD build for CDN usage
-  globalName: 'ChaindocEmbed',
-});
+]);
