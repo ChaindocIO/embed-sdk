@@ -5,6 +5,8 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
+  "unpkg": "./dist/embed-sdk.umd.js",
+  "jsdelivr": "./dist/embed-sdk.umd.js",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

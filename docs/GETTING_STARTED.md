@@ -17,6 +17,8 @@ Before you begin, ensure you have:
 
 ## Step 1: Install the SDK
 
+### Option A: Package Manager (Recommended)
+
 Choose your preferred package manager:
 
 ```bash
@@ -28,6 +30,35 @@ yarn add @chaindoc_io/embed-sdk
 
 # pnpm
 pnpm add @chaindoc_io/embed-sdk
+```
+
+### Option B: CDN (Script Tag)
+
+If you're not using a build system, you can include the SDK directly via a script tag:
+
+```html
+<script src="https://cdn.chaindoc.io/sdk/embed-sdk.umd.js"></script>
+```
+
+When loaded via CDN, the SDK is available globally as `ChaindocEmbed`:
+
+```html
+<script src="https://cdn.chaindoc.io/sdk/embed-sdk.umd.js"></script>
+<script>
+  // SDK is available as window.ChaindocEmbed
+  const chaindoc = new ChaindocEmbed.ChaindocEmbed({
+    publicKey: "pk_live_xxxxxxxxxxxxx",
+  });
+
+  // Open signing flow
+  const instance = chaindoc.openSignatureFlow({
+    sessionId: "ses_xxx",
+    onSuccess: (data) => {
+      console.log("Document signed!", data);
+      instance.close();
+    },
+  });
+</script>
 ```
 
 ---
