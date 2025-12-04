@@ -886,6 +886,6 @@ if (container) {
 
 ## Support
 
-- **Documentation**: [docs.chaindoc.io](https://docs.chaindoc.io)
-- **GitHub Issues**: [github.com/idealogic-io/chaindoc-websdk-core](https://github.com/idealogic-io/chaindoc-websdk-core)
-- **Email**: support@chaindoc.io
+- **Documentation**: [chaindoc.io/docs](https://chaindoc.io/docs)
+- **GitHub Issues**: [github.com/ChaindocIO/embed-sdk](https://github.com/ChaindocIO/embed-sdk/)
+- **Email**: contact@chaindoc.io

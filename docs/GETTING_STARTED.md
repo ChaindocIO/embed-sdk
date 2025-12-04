@@ -296,8 +296,6 @@ const chaindoc = new ChaindocEmbed({
 
 ## Support
 
-Need help? We're here for you:
-
-- **Documentation**: [docs.chaindoc.io](https://docs.chaindoc.io)
-- **GitHub Issues**: [Report a bug](https://github.com/idealogic-io/chaindoc-websdk-core/issues)
-- **Email**: support@chaindoc.io
+- **Documentation**: [chaindoc.io/docs](https://chaindoc.io/docs)
+- **GitHub Issues**: [github.com/ChaindocIO/embed-sdk](https://github.com/ChaindocIO/embed-sdk/)
+- **Email**: contact@chaindoc.io
