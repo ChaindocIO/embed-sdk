@@ -122,8 +122,8 @@ MIT License - see [LICENSE](LICENSE) file for details
 
 ## Support
 
-- GitHub Issues: [Report a bug](https://github.com/idealogic-io/chaindoc-websdk-core/issues)
-- Documentation: https://docs.chaindoc.io
+- GitHub Issues: [Report a bug](https://github.com/ChaindocIO/embed-sdk/issues)
+- Documentation: https://chaindoc.io/docs
 
 ---
 
