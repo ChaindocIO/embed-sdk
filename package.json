@@ -1,6 +1,6 @@
 {
   "name": "@chaindoc_io/embed-sdk",
-  "version": "0.1.0-alpha.12",
+  "version": "0.1.0-alpha.13",
   "description": "JavaScript/TypeScript SDK for embedding Chaindoc document signing flow via iframe",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
