@@ -23,17 +23,28 @@ Chaindoc Embed SDK is a lightweight JavaScript library that allows you to seamle
 ## Installation
 
 ```bash
-# Install alpha version for testing
-npm install @chaindoc_io/embed-sdk@alpha
+npm install @chaindoc_io/embed-sdk
 ```
 
 Or using yarn:
 
 ```bash
-yarn add @chaindoc_io/embed-sdk@alpha
+yarn add @chaindoc_io/embed-sdk
 ```
 
-> **⚠️ Alpha Release**: This is an early alpha version for testing purposes. API may change.
+### CDN Usage
+
+You can also use the SDK directly via CDN:
+
+```html
+<script src="https://unpkg.com/@chaindoc_io/embed-sdk"></script>
+<script>
+  const sdk = new ChaindocEmbed.ChaindocEmbed({
+    publicKey: "pk_live_xxx",
+    environment: "production",
+  });
+</script>
+```
 
 ## Quick Start
 
@@ -97,26 +108,9 @@ For detailed documentation, API reference, and examples, visit:
 - [API Documentation](#) _(coming soon)_
 - [Examples](#) _(coming soon)_
 
-## Development Status
+## Changelog
 
-⚠️ **Alpha Release** - This SDK is in early alpha testing. The API may change before stable release. Use in production at your own risk.
-
-**Current Version**: `0.1.0-alpha.0`
-
-**What works:**
-
-- ✅ Modal and inline display modes
-- ✅ PostMessage communication with iframe
-- ✅ Event callbacks (onSuccess, onError, onCancel, etc.)
-- ✅ Theme switching (light/dark)
-- ✅ Localization (14 languages)
-- ✅ TypeScript support
-
-**Known limitations:**
-
-- ⚠️ Not fully tested with real Chaindoc iframe yet
-- ⚠️ May contain bugs - please report issues!
-- ⚠️ API may change in future versions
+See [CHANGELOG.md](CHANGELOG.md) for release history and migration guides.
 
 ## License
 
