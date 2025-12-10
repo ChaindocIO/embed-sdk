@@ -10,13 +10,13 @@ import type { Environment } from "./types";
 export function getIframeBaseUrl(environment: Environment): string {
   switch (environment) {
     case "production":
-      return "https://chaindoc-websdk-ui.vercel.app";
+      return "https://embed.chaindoc.io";
     case "staging":
-      return "https://chaindoc-websdk-ui-git-dev-idealogic.vercel.app";
+      return "https://embed-demo.chaindoc.io";
     case "development":
-      return "https://chaindoc-websdk-ui-git-dev-idealogic.vercel.app";
+      return "https://embed-demo.chaindoc.io";
     default:
-      return "https://chaindoc-websdk-ui.vercel.app";
+      return "https://embed.chaindoc.io";
   }
 }
 
