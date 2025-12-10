@@ -90,7 +90,8 @@ export class EmbedInstance {
       baseUrl,
       this.options.sessionId,
       this.options.email,
-      this.options.theme
+      this.options.theme,
+      this.options.language
     );
 
     // Create iframe

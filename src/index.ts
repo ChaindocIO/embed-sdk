@@ -14,6 +14,7 @@ export type {
   Environment,
   DisplayMode,
   Theme,
+  Language,
   SignatureSuccessData,
   SignatureErrorData,
   ResendOtpData,

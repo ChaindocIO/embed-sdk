@@ -8,6 +8,7 @@ This guide covers advanced configuration options, edge cases, and best practices
 
 - [Display Modes](#display-modes)
 - [Theming](#theming)
+- [Localization](#localization)
 - [Error Handling Strategies](#error-handling-strategies)
 - [Session Management](#session-management)
 - [Multiple Signers Flow](#multiple-signers-flow)
@@ -148,6 +149,72 @@ window
   .addEventListener("change", (e) => {
     instance.changeTheme(e.matches ? "dark" : "light");
   });
+```
+
+---
+
+## Localization
+
+The SDK supports 14 languages for the signing UI.
+
+### Supported Languages
+
+| Code | Language    | Native Name  |
+| ---- | ----------- | ------------ |
+| `en` | English     | English      |
+| `ru` | Russian     | Русский      |
+| `uk` | Ukrainian   | Українська   |
+| `pl` | Polish      | Polski       |
+| `de` | German      | Deutsch      |
+| `es` | Spanish     | Español      |
+| `pt` | Portuguese  | Português    |
+| `fr` | French      | Français     |
+| `et` | Estonian    | Eesti        |
+| `kk` | Kazakh      | Қазақ тілі   |
+| `zh` | Chinese     | 简体中文     |
+| `hi` | Hindi       | हिंदी        |
+| `tr` | Turkish     | Türkçe       |
+| `vi` | Vietnamese  | Tiếng Việt   |
+
+### Setting Language
+
+```typescript
+chaindoc.openSignatureFlow({
+  sessionId: "ses_xxx",
+  language: "ru", // UI will be displayed in Russian
+});
+```
+
+### Browser Language Detection
+
+```typescript
+function getBrowserLanguage(): Language {
+  const browserLang = navigator.language.split("-")[0];
+  const supportedLanguages = [
+    "en", "ru", "uk", "pl", "de", "es", "pt", "fr", "et", "kk", "zh", "hi", "tr", "vi"
+  ];
+
+  return supportedLanguages.includes(browserLang)
+    ? browserLang as Language
+    : "en";
+}
+
+chaindoc.openSignatureFlow({
+  sessionId: "ses_xxx",
+  language: getBrowserLanguage(),
+});
+```
+
+### User Preference from Your App
+
+```typescript
+// If your app already has user language preference
+const userSettings = await fetchUserSettings();
+
+chaindoc.openSignatureFlow({
+  sessionId: "ses_xxx",
+  language: userSettings.preferredLanguage || "en",
+});
 ```
 
 ---

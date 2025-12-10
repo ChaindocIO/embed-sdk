@@ -25,6 +25,25 @@ export type DisplayMode = "modal" | "inline";
 export type Theme = "light" | "dark";
 
 /**
+ * Supported language codes for UI localization
+ */
+export type Language =
+  | "en"
+  | "ru"
+  | "uk"
+  | "pl"
+  | "de"
+  | "es"
+  | "pt"
+  | "fr"
+  | "et"
+  | "kk"
+  | "zh"
+  | "hi"
+  | "tr"
+  | "vi";
+
+/**
  * Main configuration for ChaindocEmbed instance
  */
 export interface ChaindocEmbedConfig {
@@ -85,6 +104,12 @@ export interface SignatureFlowOptions {
    * @default 'light'
    */
   theme?: Theme;
+
+  /**
+   * Language for the UI localization
+   * @default 'en'
+   */
+  language?: Language;
 
   /**
    * Z-index for modal overlay

@@ -19,9 +19,9 @@ export function getIframeBaseUrl(
     case "production":
       return "https://chaindoc-websdk-ui.vercel.app";
     case "staging":
-      return "https://chaindoc-websdk-ui.vercel.app";
+      return "https://chaindoc-websdk-ui-git-dev-idealogic.vercel.app";
     case "development":
-      return "https://chaindoc-websdk-ui.vercel.app";
+      return "https://chaindoc-websdk-ui-git-dev-idealogic.vercel.app";
     default:
       return "https://chaindoc-websdk-ui.vercel.app";
   }
@@ -50,7 +50,8 @@ export function buildIframeUrl(
   baseUrl: string,
   sessionId: string,
   email?: string,
-  theme?: string
+  theme?: string,
+  language?: string
 ): string {
   // Session ID goes into the path, not as a query parameter
   const url = new URL(`/embed/sign/${sessionId}`, baseUrl);
@@ -61,6 +62,10 @@ export function buildIframeUrl(
 
   if (theme) {
     url.searchParams.set("theme", theme);
+  }
+
+  if (language) {
+    url.searchParams.set("lang", language);
   }
 
   return url.toString();

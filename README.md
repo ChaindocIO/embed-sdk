@@ -51,6 +51,7 @@ const instance = sdk.openSignatureFlow({
   sessionId: "ses_xxx", // From your backend
   email: "user@example.com",
   mode: "modal",
+  language: "en", // Optional: UI language (en, ru, uk, pl, de, es, pt, fr, et, kk, zh, hi, tr, vi)
   onSuccess: (data) => {
     console.log("Document signed!", data);
     instance.close();
@@ -108,6 +109,7 @@ For detailed documentation, API reference, and examples, visit:
 - ✅ PostMessage communication with iframe
 - ✅ Event callbacks (onSuccess, onError, onCancel, etc.)
 - ✅ Theme switching (light/dark)
+- ✅ Localization (14 languages)
 - ✅ TypeScript support
 
 **Known limitations:**
