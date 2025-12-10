@@ -104,9 +104,11 @@ Embeds the signing flow directly into a container element on your page - ideal f
 
 For detailed documentation, API reference, and examples, visit:
 
-- [Implementation Guide](docs/SDK_IMPLEMENTATION_GUIDE.md)
-- [API Documentation](#) _(coming soon)_
-- [Examples](#) _(coming soon)_
+- [Introduction](https://chaindoc.io/docs/introduction)
+- [Quick Start](https://chaindoc.io/docs/quick-start)
+- [API Documentation](https://chaindoc.io/docs/api-docs)
+- [Chaindoc SDKs](https://chaindoc.io/docs/sdks)
+- [Changelog](CHANGELOG.md) - Version history
 
 ## Changelog
 
