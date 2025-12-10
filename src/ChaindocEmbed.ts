@@ -31,7 +31,6 @@ declare const __SDK_VERSION__: string;
 interface InternalConfig {
   publicKey: string;
   environment: "production" | "staging" | "development";
-  baseUrl?: string;
   debug: boolean;
 }
 
@@ -57,18 +56,11 @@ export class ChaindocEmbed {
     }
 
     // Set defaults
-    const internalConfig: InternalConfig = {
+    this.config = {
       publicKey: config.publicKey,
       environment: config.environment || "production",
       debug: config.debug || false,
     };
-
-    // Only set baseUrl if provided
-    if (config.baseUrl) {
-      internalConfig.baseUrl = config.baseUrl;
-    }
-
-    this.config = internalConfig;
 
     this.logger = new Logger(this.config.debug);
     this.logger.log("SDK initialized", this.config);

@@ -60,12 +60,6 @@ export interface ChaindocEmbedConfig {
   environment?: Environment;
 
   /**
-   * Custom base URL for iframe (overrides environment)
-   * Useful for self-hosted deployments
-   */
-  baseUrl?: string;
-
-  /**
    * Enable debug logging to console
    * @default false
    */

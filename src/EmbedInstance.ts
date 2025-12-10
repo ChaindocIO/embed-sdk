@@ -31,7 +31,6 @@ import {
 interface InternalConfig {
   publicKey: string;
   environment: Environment;
-  baseUrl?: string;
   debug: boolean;
 }
 
@@ -82,8 +81,8 @@ export class EmbedInstance {
     };
 
     // Calculate allowed origin
-    const baseUrl = getIframeBaseUrl(this.config.environment, this.config.baseUrl);
-    this.allowedOrigin = getAllowedOrigin(this.config.environment, this.config.baseUrl);
+    const baseUrl = getIframeBaseUrl(this.config.environment);
+    this.allowedOrigin = getAllowedOrigin(this.config.environment);
 
     // Build iframe URL
     const iframeUrl = buildIframeUrl(

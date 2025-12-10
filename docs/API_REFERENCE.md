@@ -410,17 +410,15 @@ SDK initialization configuration.
 interface ChaindocEmbedConfig {
   publicKey: string;
   environment?: Environment;
-  baseUrl?: string;
   debug?: boolean;
 }
 ```
 
-| Property      | Type          | Required | Default        | Description                           |
-| ------------- | ------------- | -------- | -------------- | ------------------------------------- |
-| `publicKey`   | `string`      | **Yes**  | -              | Your API public key (format: `pk_*`)  |
-| `environment` | `Environment` | No       | `'production'` | Target environment                    |
-| `baseUrl`     | `string`      | No       | -              | Override iframe URL (for self-hosted) |
-| `debug`       | `boolean`     | No       | `false`        | Enable debug logging to console       |
+| Property      | Type          | Required | Default        | Description                          |
+| ------------- | ------------- | -------- | -------------- | ------------------------------------ |
+| `publicKey`   | `string`      | **Yes**  | -              | Your API public key (format: `pk_*`) |
+| `environment` | `Environment` | No       | `'production'` | Target environment                   |
+| `debug`       | `boolean`     | No       | `false`        | Enable debug logging to console      |
 
 ---
 

@@ -7,14 +7,7 @@ import type { Environment } from "./types";
 /**
  * Get the iframe base URL based on environment
  */
-export function getIframeBaseUrl(
-  environment: Environment,
-  customBaseUrl?: string
-): string {
-  if (customBaseUrl) {
-    return customBaseUrl;
-  }
-
+export function getIframeBaseUrl(environment: Environment): string {
   switch (environment) {
     case "production":
       return "https://chaindoc-websdk-ui.vercel.app";
@@ -30,11 +23,8 @@ export function getIframeBaseUrl(
 /**
  * Get allowed origin for postMessage validation
  */
-export function getAllowedOrigin(
-  environment: Environment,
-  customBaseUrl?: string
-): string {
-  const baseUrl = getIframeBaseUrl(environment, customBaseUrl);
+export function getAllowedOrigin(environment: Environment): string {
+  const baseUrl = getIframeBaseUrl(environment);
   try {
     const url = new URL(baseUrl);
     return url.origin;
