@@ -48,7 +48,15 @@ export type Language =
  */
 export interface ChaindocEmbedConfig {
   /**
-   * Public API key for authentication (starts with pk_)
+   * Public API key (starts with pk_).
+   *
+   * Currently used for SDK initialization validation only.
+   * It is **not** sent to the iframe or used for runtime authentication —
+   * embedded session auth is handled via OTP → JWT flow on the server side.
+   *
+   * This field is kept for forward compatibility: future versions may use it
+   * for origin binding, usage logging, or session policy enforcement.
+   *
    * @required
    */
   publicKey: string;
@@ -304,4 +312,5 @@ export interface InstanceState {
   theme: Theme;
   isReady: boolean;
   isClosed: boolean;
+  hasSucceeded: boolean;
 }

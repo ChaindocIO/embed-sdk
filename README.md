@@ -73,6 +73,16 @@ const instance = sdk.openSignatureFlow({
 });
 ```
 
+## `publicKey` today
+
+`publicKey` is still required and validated on SDK initialization, but it is not currently forwarded to the iframe or used for runtime authentication. The real embedded auth flow is:
+
+1. Your backend creates an embedded session
+2. The signer verifies OTP
+3. The iframe receives a short-lived JWT for `/api/v1/embedded/*`
+
+The field remains in the API for backward compatibility and future productization, but for Phase 0 it should be understood as ceremonial rather than security-critical runtime auth.
+
 ## How It Works
 
 1. Your backend creates a signing session via Chaindoc API

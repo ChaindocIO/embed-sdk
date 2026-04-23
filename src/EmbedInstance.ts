@@ -78,6 +78,7 @@ export class EmbedInstance {
       theme: this.options.theme || 'light',
       isReady: false,
       isClosed: false,
+      hasSucceeded: false,
     };
 
     // Calculate allowed origin
@@ -89,8 +90,10 @@ export class EmbedInstance {
       baseUrl,
       this.options.sessionId,
       this.options.email,
-      this.options.theme,
-      this.options.language
+      this.state.mode,
+      this.state.theme,
+      this.options.language,
+      this.options.closeOnEscape
     );
 
     // Create iframe
@@ -117,7 +120,10 @@ export class EmbedInstance {
     const iframe = document.createElement('iframe');
     iframe.src = url;
     iframe.setAttribute('style', getIframeStyles(this.state.mode));
-    iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-popups');
+    iframe.setAttribute(
+      'sandbox',
+      'allow-scripts allow-same-origin allow-forms allow-popups allow-downloads'
+    );
     // Permissions for KYC verification (camera/microphone for liveness check, geolocation optional)
     iframe.setAttribute('allow', 'clipboard-write; camera; microphone; geolocation');
     return iframe;
@@ -148,7 +154,9 @@ export class EmbedInstance {
       this.overlay.addEventListener('click', (e) => {
         if (e.target === this.overlay) {
           this.logger.log('Clicked outside modal - closing');
-          this.options.onCancel?.();
+          if (!this.state.hasSucceeded) {
+            this.options.onCancel?.();
+          }
           this.close();
         }
       });
@@ -159,7 +167,9 @@ export class EmbedInstance {
       const handleEscape = (e: KeyboardEvent) => {
         if (e.key === 'Escape') {
           this.logger.log('ESC key pressed - closing');
-          this.options.onCancel?.();
+          if (!this.state.hasSucceeded) {
+            this.options.onCancel?.();
+          }
           this.close();
         }
       };
@@ -231,6 +241,7 @@ export class EmbedInstance {
         break;
 
       case 'SUCCESS':
+        this.state.hasSucceeded = true;
         if ('data' in message) {
           this.options.onSuccess?.(message.data);
         }
@@ -243,7 +254,9 @@ export class EmbedInstance {
         break;
 
       case 'CANCEL':
-        this.options.onCancel?.();
+        if (!this.state.hasSucceeded) {
+          this.options.onCancel?.();
+        }
         break;
 
       case 'CLOSED':

@@ -1,0 +1,29 @@
+import { describe, expect, it } from "vitest";
+import { ChaindocEmbed } from "../ChaindocEmbed";
+import { buildIframeUrl, getIframeBaseUrl } from "../utils";
+
+describe("ChaindocEmbed", () => {
+  it("requires a pk_ public key at initialization", () => {
+    expect(() => new ChaindocEmbed({ publicKey: "" })).toThrow(
+      "ChaindocEmbed: publicKey is required",
+    );
+    expect(() => new ChaindocEmbed({ publicKey: "sk_invalid" })).toThrow(
+      'ChaindocEmbed: publicKey must start with "pk_"',
+    );
+  });
+
+  it("builds iframe URLs from the session path and query params", () => {
+    const url = buildIframeUrl(
+      getIframeBaseUrl("development"),
+      "ses_123",
+      "signer@example.com",
+      "modal",
+      "dark",
+      "en",
+    );
+
+    expect(url).toBe(
+      "https://embed-demo.chaindoc.io/embed/sign/ses_123?email=signer%40example.com&mode=modal&theme=dark&lang=en",
+    );
+  });
+});

@@ -1,6 +1,6 @@
 {
   "name": "@chaindoc_io/embed-sdk",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "JavaScript/TypeScript SDK for embedding Chaindoc document signing flow via iframe",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -27,6 +27,7 @@
     "lint": "eslint src --ext .ts",
     "test": "vitest",
     "test:ui": "vitest --ui",
+    "prepare": "npm run build",
     "prepack": "npm run build"
   },
   "keywords": [

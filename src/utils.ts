@@ -2,7 +2,7 @@
  * Utility functions for Chaindoc Embed SDK
  */
 
-import type { Environment } from "./types";
+import type { DisplayMode, Environment } from "./types";
 
 /**
  * Get the iframe base URL based on environment
@@ -40,8 +40,10 @@ export function buildIframeUrl(
   baseUrl: string,
   sessionId: string,
   email?: string,
+  mode?: DisplayMode,
   theme?: string,
-  language?: string
+  language?: string,
+  closeOnEscape?: boolean
 ): string {
   // Session ID goes into the path, not as a query parameter
   const url = new URL(`/embed/sign/${sessionId}`, baseUrl);
@@ -50,12 +52,20 @@ export function buildIframeUrl(
     url.searchParams.set("email", email);
   }
 
+  if (mode) {
+    url.searchParams.set("mode", mode);
+  }
+
   if (theme) {
     url.searchParams.set("theme", theme);
   }
 
   if (language) {
     url.searchParams.set("lang", language);
+  }
+
+  if (closeOnEscape !== undefined) {
+    url.searchParams.set("closeOnEscape", String(closeOnEscape));
   }
 
   return url.toString();
