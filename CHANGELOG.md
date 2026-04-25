@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-04-24
+
+### Added
+
+- **Iframe fullscreen protocol**: Two new inbound postMessage events (`REQUEST_FULLSCREEN` and `EXIT_FULLSCREEN`) let the embedded UI expand the iframe to cover the entire parent viewport and then restore it. The iframe's inline style is saved on enter and restored on exit, and `RESIZE` messages are ignored while fullscreen is active so the UI cannot clobber the expanded height. Works uniformly in modal and inline modes and on iOS Safari (no reliance on the native Fullscreen API, which does not work for arbitrary elements on iPhone). Scroll-chaining from the fullscreen iframe is handled inside the iframe via `overscroll-behavior: contain` on the embedded UI side, so no host-page state (e.g. `body.overflow`) is mutated and there is nothing to leak back if a restore path is ever missed.
+
 ## [2.0.0] - 2026-04-23
 
 Version aligned with `@chaindoc_io/server-sdk` 2.0.0 so both SDKs share a matching major across the ecosystem. No breaking changes in the embed SDK itself — all changes below are additive and backward compatible with the 1.0.x API.
@@ -50,5 +56,6 @@ Version aligned with `@chaindoc_io/server-sdk` 2.0.0 so both SDKs share a matchi
 
 ---
 
+[2.1.0]: https://github.com/ChaindocIO/embed-sdk/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/ChaindocIO/embed-sdk/compare/v1.0.0...v2.0.0
 [1.0.0]: https://github.com/ChaindocIO/embed-sdk/releases/tag/v1.0.0

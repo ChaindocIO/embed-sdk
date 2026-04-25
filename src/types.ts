@@ -280,6 +280,14 @@ export type IframeToSdkMessage =
       source: "chaindoc-embed";
       type: "RESEND_OTP";
       data: ResendOtpData;
+    }
+  | {
+      source: "chaindoc-embed";
+      type: "REQUEST_FULLSCREEN";
+    }
+  | {
+      source: "chaindoc-embed";
+      type: "EXIT_FULLSCREEN";
     };
 
 /**

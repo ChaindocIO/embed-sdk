@@ -52,11 +52,15 @@ export class EmbedInstance {
   private state: InstanceState;
   private iframe: HTMLIFrameElement;
   private overlay: HTMLDivElement | null = null;
+  private modalContainer: HTMLDivElement | null = null;
   private container: HTMLElement | null = null;
 
   private allowedOrigin: string;
   private messageListener: (event: MessageEvent) => void;
   private previousOverflow: string = '';
+
+  private isFullscreen: boolean = false;
+  private previousIframeStyle: string | null = null;
 
   private internalEventHandlers: Map<string, Set<Function>> = new Map();
 
@@ -139,15 +143,15 @@ export class EmbedInstance {
     this.overlay.setAttribute('data-chaindoc-overlay', 'true');
 
     // Create modal container
-    const modalContainer = document.createElement('div');
-    modalContainer.setAttribute(
+    this.modalContainer = document.createElement('div');
+    this.modalContainer.setAttribute(
       'style',
       getModalContainerStyles(this.options.modalWidth, this.options.modalHeight)
     );
-    modalContainer.appendChild(this.iframe);
+    this.modalContainer.appendChild(this.iframe);
 
     // Add container to overlay
-    this.overlay.appendChild(modalContainer);
+    this.overlay.appendChild(this.modalContainer);
 
     // Click outside to cancel and close (configurable, default: true)
     if (this.options.closeOnClickOutside !== false) {
@@ -235,7 +239,7 @@ export class EmbedInstance {
         break;
 
       case 'RESIZE':
-        if ('data' in message) {
+        if ('data' in message && !this.isFullscreen) {
           this.iframe.style.height = `${message.data.height}px`;
         }
         break;
@@ -269,9 +273,78 @@ export class EmbedInstance {
         }
         break;
 
+      case 'REQUEST_FULLSCREEN':
+        this.enterFullscreen();
+        break;
+
+      case 'EXIT_FULLSCREEN':
+        this.exitFullscreen();
+        break;
+
       default:
         this.logger.warn('Unknown message type:', message);
     }
+  }
+
+  /**
+   * Expand iframe to cover the entire parent viewport.
+   * Works uniformly in modal and inline modes, including iOS Safari
+   * (does not rely on the native Fullscreen API).
+   *
+   * Parent body.overflow is intentionally NOT modified here: it is brittle
+   * (easy to leak a `hidden` lock back to the host page if the restore path
+   * is missed). Scroll-chaining from the fullscreen iframe is handled inside
+   * the iframe itself via `overscroll-behavior: contain` on the scroll area.
+   */
+  private enterFullscreen(): void {
+    if (this.isFullscreen || this.state.isClosed) {
+      return;
+    }
+
+    this.logger.log('Entering fullscreen');
+
+    this.previousIframeStyle = this.iframe.getAttribute('style');
+
+    this.iframe.setAttribute(
+      'style',
+      `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        max-width: none;
+        max-height: none;
+        border: 0;
+        border-radius: 0;
+        margin: 0;
+        padding: 0;
+        display: block;
+        z-index: 2147483647;
+      `.trim()
+    );
+
+    this.isFullscreen = true;
+  }
+
+  /**
+   * Restore iframe to its previous size and position.
+   */
+  private exitFullscreen(): void {
+    if (!this.isFullscreen) {
+      return;
+    }
+
+    this.logger.log('Exiting fullscreen');
+
+    if (this.previousIframeStyle !== null) {
+      this.iframe.setAttribute('style', this.previousIframeStyle);
+    } else {
+      this.iframe.removeAttribute('style');
+    }
+    this.previousIframeStyle = null;
+
+    this.isFullscreen = false;
   }
 
   /**
@@ -369,6 +442,11 @@ export class EmbedInstance {
     }
 
     this.logger.log('Cleaning up instance');
+
+    // Restore body overflow if we are destroyed while fullscreen is active
+    if (this.isFullscreen) {
+      this.exitFullscreen();
+    }
 
     this.state.isClosed = true;
 
