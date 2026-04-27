@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.1] - 2026-04-27
+
+### Fixed
+
+- **Email normalization in `buildIframeUrl`**: the `email` query parameter is trimmed and lowercased before being attached to the iframe URL. Aligns the embed handoff with the canonical `users.email` casing used by the backend so OTP/session lookups inside the iframe don't silently miss when the host page passes a mixed-case email.
+
 ## [2.1.0] - 2026-04-24
 
 ### Added

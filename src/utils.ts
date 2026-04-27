@@ -48,8 +48,9 @@ export function buildIframeUrl(
   // Session ID goes into the path, not as a query parameter
   const url = new URL(`/embed/sign/${sessionId}`, baseUrl);
 
-  if (email) {
-    url.searchParams.set("email", email);
+  const normalizedEmail = email?.trim().toLowerCase();
+  if (normalizedEmail) {
+    url.searchParams.set("email", normalizedEmail);
   }
 
   if (mode) {
