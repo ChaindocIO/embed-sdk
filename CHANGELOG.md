@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2026-05-07
+
+### Changed
+
+- **Default modal size raised to `450x850`** (from `400x600`). The previous defaults were too small for the embedded UI to render the signature pad and document preview without overflow on long document names — partner integrations that did not pass explicit `modalWidth`/`modalHeight` rendered a broken signing flow out of the box. The new defaults match the size used by the internal QA test environment, which is the only configuration the embedded UI was actually validated on. Integrators who already pass dimensions are unaffected.
+- **JSDoc `@default` annotations corrected** on `SignatureFlowOptions.modalWidth`/`modalHeight` — they previously claimed `800`/`600` while the runtime used `400`/`600`. Documentation in `docs/ADVANCED_USAGE.md` and `docs/API_REFERENCE.md` was updated to match.
+- **Internal cleanups**: tightened typing on `EmbedInstance`'s internal event handler map and added unit tests covering both default and explicit-size modal container styles.
+
+### Added
+
+- **ESLint config (`.eslintrc.cjs`)**: the package had ESLint dependencies and a `lint` script but no config file, so `yarn lint` was a no-op. The standard `@typescript-eslint/recommended` config makes the script functional. Dev-only artifact — not shipped in the published tarball.
+
+### Released from
+
+- `2.2.0-alpha.1` (2026-05-07)
+- `2.2.0-alpha.2` (2026-05-07)
+
 ## [2.1.1] - 2026-04-27
 
 ### Fixed

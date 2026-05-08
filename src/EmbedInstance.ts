@@ -34,6 +34,8 @@ interface InternalConfig {
   debug: boolean;
 }
 
+type InternalEventHandler = () => void;
+
 /**
  * Represents a single signature flow instance
  *
@@ -62,7 +64,7 @@ export class EmbedInstance {
   private isFullscreen: boolean = false;
   private previousIframeStyle: string | null = null;
 
-  private internalEventHandlers: Map<string, Set<Function>> = new Map();
+  private internalEventHandlers: Map<string, Set<InternalEventHandler>> = new Map();
 
   constructor(
     config: InternalConfig,
@@ -419,11 +421,14 @@ export class EmbedInstance {
    * Internal event system (for cleanup tracking)
    * @internal
    */
-  _internalOn(event: string, handler: Function): void {
-    if (!this.internalEventHandlers.has(event)) {
-      this.internalEventHandlers.set(event, new Set());
+  _internalOn(event: string, handler: InternalEventHandler): void {
+    const handlers = this.internalEventHandlers.get(event);
+    if (handlers) {
+      handlers.add(handler);
+      return;
     }
-    this.internalEventHandlers.get(event)!.add(handler);
+
+    this.internalEventHandlers.set(event, new Set([handler]));
   }
 
   private emit(event: string): void {

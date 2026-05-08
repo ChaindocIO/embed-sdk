@@ -121,13 +121,13 @@ export interface SignatureFlowOptions {
 
   /**
    * Modal width in pixels (only for modal mode)
-   * @default 800
+   * @default 450
    */
   modalWidth?: number;
 
   /**
    * Modal height in pixels (only for modal mode)
-   * @default 600
+   * @default 850
    */
   modalHeight?: number;
 

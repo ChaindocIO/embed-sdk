@@ -461,8 +461,8 @@ interface SignatureFlowOptions {
 | `container`           | `HTMLElement \| string` | No\*     | -         | Container for inline mode (\*required if `mode='inline'`) |
 | `theme`               | `Theme`                 | No       | `'light'` | UI theme: `'light'` or `'dark'`                           |
 | `zIndex`              | `number`                | No       | `999999`  | Modal z-index                                             |
-| `modalWidth`          | `number`                | No       | `800`     | Modal width in pixels                                     |
-| `modalHeight`         | `number`                | No       | `600`     | Modal height in pixels                                    |
+| `modalWidth`          | `number`                | No       | `450`     | Modal width in pixels                                     |
+| `modalHeight`         | `number`                | No       | `850`     | Modal height in pixels                                    |
 | `email`               | `string`                | No       | -         | Pre-fill email in OTP form                                |
 | `closeOnClickOutside` | `boolean`               | No       | `true`    | Close modal on overlay click                              |
 | `closeOnEscape`       | `boolean`               | No       | `true`    | Close modal on ESC key                                    |
@@ -737,8 +737,8 @@ Opens a centered overlay with a semi-transparent backdrop.
 chaindoc.openSignatureFlow({
   sessionId: "ses_xxx",
   mode: "modal",
-  modalWidth: 800,
-  modalHeight: 600,
+  modalWidth: 450,
+  modalHeight: 850,
   zIndex: 999999,
   closeOnClickOutside: true,
   closeOnEscape: true,

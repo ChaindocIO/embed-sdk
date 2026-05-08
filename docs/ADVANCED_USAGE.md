@@ -32,8 +32,8 @@ const instance = chaindoc.openSignatureFlow({
   mode: "modal",
 
   // Modal customization
-  modalWidth: 800, // Width in pixels
-  modalHeight: 600, // Height in pixels
+  modalWidth: 450, // Width in pixels
+  modalHeight: 850, // Height in pixels
   zIndex: 999999, // Stack order
 
   // Behavior

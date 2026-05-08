@@ -28,8 +28,8 @@ export function getModalContainerStyles(
   width?: number,
   height?: number
 ): string {
-  const modalWidth = width ?? 400;
-  const modalHeight = height ?? 600;
+  const modalWidth = width ?? 450;
+  const modalHeight = height ?? 850;
 
   return `
     position: relative;

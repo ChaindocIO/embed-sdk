@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { ChaindocEmbed } from "../ChaindocEmbed";
+import { getModalContainerStyles } from "../styles";
 import { buildIframeUrl, getIframeBaseUrl } from "../utils";
 
 describe("ChaindocEmbed", () => {
@@ -43,5 +44,19 @@ describe("ChaindocEmbed", () => {
     const url = buildIframeUrl(getIframeBaseUrl("development"), "ses_789", "   ");
 
     expect(url).toBe("https://embed-demo.chaindoc.io/embed/sign/ses_789");
+  });
+
+  it("uses production-sized modal defaults when dimensions are omitted", () => {
+    const styles = getModalContainerStyles();
+
+    expect(styles).toContain("max-width: 450px;");
+    expect(styles).toContain("height: 850px;");
+  });
+
+  it("keeps explicit modal dimensions when provided", () => {
+    const styles = getModalContainerStyles(640, 720);
+
+    expect(styles).toContain("max-width: 640px;");
+    expect(styles).toContain("height: 720px;");
   });
 });
