@@ -18,6 +18,24 @@ export type {
   SignatureSuccessData,
   SignatureErrorData,
   ResendOtpData,
+  DeclinedData,
+  SignatureResult,
+  SignatureResultKind,
+  SignatureKind,
   IframeToSdkMessage,
   SdkToIframeMessage,
 } from "./types";
+export {
+  LEGACY_EMBED_ERROR_CODES,
+  TYPED_EMBED_ERROR_CODES,
+  isKnownEmbedErrorCode,
+  isTypedEmbedErrorCode,
+  getSigningFieldProblems,
+} from "./errors";
+export type {
+  EmbedErrorCode,
+  KnownEmbedErrorCode,
+  LegacyEmbedErrorCode,
+  TypedEmbedErrorCode,
+  SigningFieldProblem,
+} from "./errors";

@@ -85,6 +85,7 @@ export class EmbedInstance {
       isReady: false,
       isClosed: false,
       hasSucceeded: false,
+      hasDeclined: false,
     };
 
     // Calculate allowed origin
@@ -160,7 +161,7 @@ export class EmbedInstance {
       this.overlay.addEventListener('click', (e) => {
         if (e.target === this.overlay) {
           this.logger.log('Clicked outside modal - closing');
-          if (!this.state.hasSucceeded) {
+          if (!this.state.hasSucceeded && !this.state.hasDeclined) {
             this.options.onCancel?.();
           }
           this.close();
@@ -173,7 +174,7 @@ export class EmbedInstance {
       const handleEscape = (e: KeyboardEvent) => {
         if (e.key === 'Escape') {
           this.logger.log('ESC key pressed - closing');
-          if (!this.state.hasSucceeded) {
+          if (!this.state.hasSucceeded && !this.state.hasDeclined) {
             this.options.onCancel?.();
           }
           this.close();
@@ -259,8 +260,15 @@ export class EmbedInstance {
         }
         break;
 
+      case 'DECLINED':
+        this.state.hasDeclined = true;
+        if ('data' in message) {
+          this.options.onDecline?.(message.data);
+        }
+        break;
+
       case 'CANCEL':
-        if (!this.state.hasSucceeded) {
+        if (!this.state.hasSucceeded && !this.state.hasDeclined) {
           this.options.onCancel?.();
         }
         break;

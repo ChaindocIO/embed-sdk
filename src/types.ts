@@ -5,6 +5,8 @@
  * for the SDK and iframe communication.
  */
 
+import type { EmbedErrorCode } from "./errors";
+
 // ============================================================================
 // Configuration Types
 // ============================================================================
@@ -165,6 +167,11 @@ export interface SignatureFlowOptions {
   onCancel?: () => void;
 
   /**
+   * Called when the signer declines to sign (2.3.0). `onCancel` is not called for a decline.
+   */
+  onDecline?: (data: DeclinedData) => void;
+
+  /**
    * Called when iframe is closed
    */
   onClose?: () => void;
@@ -202,6 +209,61 @@ export interface SignatureSuccessData {
    * Timestamp of signature (ISO 8601)
    */
   signedAt: string;
+
+  /**
+   * What finished (2.3.0). Absent when the iframe is older than 2.3.0.
+   */
+  result?: SignatureResult;
+
+  /**
+   * How the signature was made (2.3.0): `simple` or `qualified` (QES).
+   * Absent when the iframe is older than 2.3.0.
+   */
+  signatureKind?: SignatureKind;
+}
+
+/**
+ * What kind of thing the signer finished (2.3.0). A kind this SDK version
+ * does not know is passed through as a string.
+ */
+export type SignatureResultKind =
+  | "document_signature"
+  | "contract_signature"
+  | (string & Record<never, never>);
+
+/**
+ * Signature strength (2.3.0). A kind this SDK version does not know is
+ * passed through as a string.
+ */
+export type SignatureKind = "simple" | "qualified" | (string & Record<never, never>);
+
+export interface SignatureResult {
+  kind: SignatureResultKind;
+}
+
+/**
+ * Data returned when the signer declines (2.3.0)
+ */
+export interface DeclinedData {
+  /**
+   * Session ID that was declined
+   */
+  sessionId: string;
+
+  /**
+   * Document ID that was declined, when known
+   */
+  documentId?: string;
+
+  /**
+   * The reason the signer gave, if any
+   */
+  reason?: string;
+
+  /**
+   * Timestamp of the decline (ISO 8601), when known
+   */
+  declinedAt?: string;
 }
 
 /**
@@ -209,9 +271,10 @@ export interface SignatureSuccessData {
  */
 export interface SignatureErrorData {
   /**
-   * Error code
+   * Error code. Known codes autocomplete (see `EmbedErrorCode`); a code this
+   * SDK version does not know is still delivered as a string.
    */
-  code: string;
+  code: EmbedErrorCode;
 
   /**
    * Human-readable error message
@@ -219,7 +282,8 @@ export interface SignatureErrorData {
   message: string;
 
   /**
-   * Additional error details
+   * Additional error details. For `SIGNING_FIELDS_EMPTY`, `details.fields`
+   * lists the fields (see `getSigningFieldProblems`).
    */
   details?: Record<string, unknown>;
 }
@@ -274,6 +338,11 @@ export type IframeToSdkMessage =
     }
   | {
       source: "chaindoc-embed";
+      type: "DECLINED";
+      data: DeclinedData;
+    }
+  | {
+      source: "chaindoc-embed";
       type: "CLOSED";
     }
   | {
@@ -321,4 +390,5 @@ export interface InstanceState {
   isReady: boolean;
   isClosed: boolean;
   hasSucceeded: boolean;
+  hasDeclined: boolean;
 }

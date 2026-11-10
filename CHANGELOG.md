@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.0] - 2026-11-10
+
+Backwards compatible: no existing event, option or type changes meaning; every new field is optional. The wire format is
+documented under "Message protocol" in the README.
+
+### Added
+
+- **`SUCCESS` carries `result.kind`** (`document_signature`, `contract_signature`) and **`signatureKind`** (`simple`, `qualified`).
+- **`DECLINED` event** and the `onDecline` callback, with the reason when the signer gave one. A decline does not call `onCancel`.
+- **Typed error codes**: `NOT_YOUR_TURN`, `ACCOUNT_READ_ONLY`, `KYC_WAITS_FOR_A_UNIT`, `SIGNING_FIELDS_EMPTY`,
+  `SIGNING_METHOD_BELOW_REQUIREMENT`, `INTEGRATIONS_NOT_IN_PLAN`, `PAYMENT_PROVIDER_ERROR`, `PAYMENT_PROVIDER_NOT_CONFIGURED`
+  and the embedded payment-method refusals (`EMBEDDED_PAYMENT_METHOD_NOT_REQUIRED`, `EMBEDDED_PAYMENT_METHOD_ALREADY_LINKED`,
+  `EMBEDDED_SIGNING_REQUEST_CLOSED`, `EMBEDDED_CONTRACT_NOT_SIGNABLE`). `EmbedErrorCode` types them and still accepts any other string.
+- Helpers `getSigningFieldProblems`, `isKnownEmbedErrorCode`, `isTypedEmbedErrorCode`.
+
+### Changed
+
+- `SignatureErrorData.code` is typed `EmbedErrorCode` (known codes plus `string`); still assignable from and to `string`.
+
 ## [2.2.0] - 2026-05-07
 
 ### Changed
