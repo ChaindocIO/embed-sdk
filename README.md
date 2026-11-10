@@ -5,6 +5,8 @@
 [![npm version](https://img.shields.io/npm/v/@chaindoc_io/embed-sdk.svg)](https://www.npmjs.com/package/@chaindoc_io/embed-sdk)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
+What changed in November 2026 → server-sdk `docs/WHATS-CHANGED-2026-11.md`
+
 ## What is Chaindoc Embed SDK?
 
 Chaindoc Embed SDK is a lightweight JavaScript library that allows you to seamlessly integrate document signing functionality into your web application. Instead of redirecting users to a separate signing page, you can embed the entire signing experience directly within your site using a modal dialog or inline container.
