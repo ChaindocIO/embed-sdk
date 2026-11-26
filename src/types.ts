@@ -216,7 +216,11 @@ export interface SignatureSuccessData {
   result?: SignatureResult;
 
   /**
-   * How the signature was made (2.3.0): `simple` or `qualified` (QES).
+   * How the signature was made (2.3.0): `simple` (the platform's signature) or
+   * `qualified` (the signer's own certificate: a key file or a smart card).
+   * It names the method, not a legal verdict: whether the signature is
+   * legally qualified is the validator's verdict on the certificate, which the
+   * server SDK reads on `getRequestStatus` (`signers[].qes.legalClass`).
    * Absent when the iframe is older than 2.3.0.
    */
   signatureKind?: SignatureKind;
@@ -232,8 +236,9 @@ export type SignatureResultKind =
   | (string & Record<never, never>);
 
 /**
- * Signature strength (2.3.0). A kind this SDK version does not know is
- * passed through as a string.
+ * How the signer signed (2.3.0): `simple` — the platform's signature;
+ * `qualified` — their own certificate. A kind this SDK version does not know
+ * is passed through as a string.
  */
 export type SignatureKind = "simple" | "qualified" | (string & Record<never, never>);
 

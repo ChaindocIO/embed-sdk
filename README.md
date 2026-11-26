@@ -141,7 +141,10 @@ SDK to iframe (unchanged): `CLOSE` (no data), `THEME_CHANGE` with `{ theme: "lig
 
 - `result.kind`: `"document_signature"` (a document or signature request was signed) or `"contract_signature"` (a
   contract was signed). The iframe must send one of these; the SDK types a future kind as a plain string.
-- `signatureKind`: `"simple"` or `"qualified"` (QES).
+- `signatureKind`: `"simple"` (the platform's signature) or `"qualified"` (the signer's own certificate — a key file or a
+  smart card, opened in the signing window). It names the method, not a legal verdict: whether the signature is legally
+  qualified is the validator's verdict on that certificate, read on the server (`getRequestStatus`,
+  `signers[].qes.legalClass`).
 - Both new fields are optional. An iframe older than 2.3.0 sends neither, and the SDK delivers the rest exactly as before.
 
 ### `DECLINED` data (2.3.0)
@@ -174,7 +177,7 @@ string (`EmbedErrorCode` is `KnownEmbedErrorCode | (string & Record<never, never
 | `ACCOUNT_READ_ONLY` | 2.3.0 | the sender's account is read only | none |
 | `KYC_WAITS_FOR_A_UNIT` | 2.3.0 | identity check cannot start: no KYC unit available | none |
 | `SIGNING_FIELDS_EMPTY` | 2.3.0 | fields the signer must fill are empty or invalid | `{ fields: { key: string, name: string, problem: "missing" \| "invalid" }[] }` |
-| `SIGNING_METHOD_BELOW_REQUIREMENT` | 2.3.0 | the document needs a qualified signature the embed cannot make | none |
+| `SIGNING_METHOD_BELOW_REQUIREMENT` | 2.3.0 | the signer must sign with their own certificate and a simple signature was attempted (the window offers such a signer only the qualified way) | none |
 | `INTEGRATIONS_NOT_IN_PLAN` | 2.3.0 | the account's plan has no integrations | none |
 | `PAYMENT_PROVIDER_ERROR` | 2.3.0 | the payment provider failed | none |
 | `PAYMENT_PROVIDER_NOT_CONFIGURED` | 2.3.0 | no payment provider is configured | none |

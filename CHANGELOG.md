@@ -20,6 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   runtime.
 
 ### Documentation
+- `signatureKind: "qualified"` names the method (the signer's own certificate), not a legal verdict; the verdict is read on
+  the server. `SIGNING_METHOD_BELOW_REQUIREMENT` no longer claims the window cannot make a qualified signature: it can.
 - `EMBEDDED_CONTRACT_NOT_SIGNABLE` means a contract that was never sent for signing (a contract whose request ended is
   `EMBEDDED_SIGNING_REQUEST_CLOSED`). A refused signature can report any server `errorKey` verbatim.
 
