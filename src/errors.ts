@@ -53,6 +53,9 @@ export const TYPED_EMBED_ERROR_CODES = [
   // belongs to a different account than the one it was issued to. Issue a new session.
   "SESSION_REVOKED",
   "EMBEDDED_SESSION_IDENTITY_STALE",
+  // The signer was refused identity verification for good (`details.rejectType: "final"`): they cannot sign this request.
+  // Sent once per session, when the window first reads it; the window shows its own final screen and keeps Close.
+  "KYC_REJECTED",
 ] as const;
 
 export type LegacyEmbedErrorCode = (typeof LEGACY_EMBED_ERROR_CODES)[number];

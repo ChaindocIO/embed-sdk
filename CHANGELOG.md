@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `ERROR` when a session can no longer be opened (revoked by a re-addressing; its address changed hands). The other login
   refusals keep their 1.0 codes (`SESSION_EXPIRED`, `SESSION_ALREADY_CONFIRMED`, `SESSION_NOT_FOUND`, …), which the server
   now sends as its `errorKey`. Types only; nothing changes at runtime.
+- `KYC_REJECTED` in `TYPED_EMBED_ERROR_CODES`: the signing window reports it in `ERROR` (once per session, with
+  `details.rejectType: "final"`) when the signer was refused identity verification for good and cannot sign. The window
+  shows its own final screen; the page hears `CANCEL` and `CLOSED` when the signer closes it. Types only; nothing changes at
+  runtime.
 
 ### Documentation
 - `EMBEDDED_CONTRACT_NOT_SIGNABLE` means a contract that was never sent for signing (a contract whose request ended is

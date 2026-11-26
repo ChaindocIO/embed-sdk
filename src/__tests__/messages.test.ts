@@ -170,6 +170,8 @@ describe("error codes", () => {
       // The login refusals that end the link (websdk-ui piece 16): the server's own keys, verbatim.
       "SESSION_REVOKED",
       "EMBEDDED_SESSION_IDENTITY_STALE",
+      // A final identity refusal (websdk-ui piece 19), with `details.rejectType`.
+      "KYC_REJECTED",
     ]) {
       expect(TYPED_EMBED_ERROR_CODES).toContain(code);
       expect(isTypedEmbedErrorCode(code)).toBe(true);

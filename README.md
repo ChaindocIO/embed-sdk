@@ -185,6 +185,7 @@ string (`EmbedErrorCode` is `KnownEmbedErrorCode | (string & Record<never, never
 | `EMBEDDED_DECLINE_REASON_REQUIRED`, `EMBEDDED_DECLINE_REASON_TOO_LONG` | next | the server refused a decline's reason (the window always asks one and checks its length first) | none |
 | `SESSION_REVOKED` | next | the link no longer opens: the sender re-addressed the signer and this session was revoked; issue a new session | none |
 | `EMBEDDED_SESSION_IDENTITY_STALE` | next | the session's e-mail address now belongs to a different account than the one it was issued to; issue a new session | none |
+| `KYC_REJECTED` | next | the signer was refused identity verification for good: they cannot sign this request (the window shows a final screen; Close ends it). Sent once per session. A resubmission the provider asks for is not this — its widget asks for it | `{ rejectType: "final" }` |
 
 A refused signature reports the server's own `errorKey` verbatim, so `code` may be a key outside this table (for example
 `KYC_NOT_VERIFIED`, `SIGNER_ALREADY_ACTED`, `SIGNING_REQUEST_EXPIRED`); without a key it is `SERVER_ERROR`, `NETWORK_ERROR`,
