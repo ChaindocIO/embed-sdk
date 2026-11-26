@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- `EMBEDDED_DECLINE_REASON_REQUIRED` and `EMBEDDED_DECLINE_REASON_TOO_LONG` in `TYPED_EMBED_ERROR_CODES`: the signing window
+  reports them in `ERROR` when the server refuses a decline's reason. Types only; nothing changes at runtime.
+
+### Documentation
+- `EMBEDDED_CONTRACT_NOT_SIGNABLE` means a contract that was never sent for signing (a contract whose request ended is
+  `EMBEDDED_SIGNING_REQUEST_CLOSED`). A refused signature can report any server `errorKey` verbatim.
+
 ## [2.3.0] - 2026-11-10
 
 Backwards compatible: no existing event, option or type changes meaning; every new field is optional. The wire format is

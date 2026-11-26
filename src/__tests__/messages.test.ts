@@ -164,6 +164,9 @@ describe("error codes", () => {
       "EMBEDDED_PAYMENT_METHOD_ALREADY_LINKED",
       "EMBEDDED_SIGNING_REQUEST_CLOSED",
       "EMBEDDED_CONTRACT_NOT_SIGNABLE",
+      // The window reports the decline's bounds by these (websdk-ui `TYPED_REFUSAL_CODES`).
+      "EMBEDDED_DECLINE_REASON_REQUIRED",
+      "EMBEDDED_DECLINE_REASON_TOO_LONG",
     ]) {
       expect(TYPED_EMBED_ERROR_CODES).toContain(code);
       expect(isTypedEmbedErrorCode(code)).toBe(true);

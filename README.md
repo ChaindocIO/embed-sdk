@@ -181,7 +181,12 @@ string (`EmbedErrorCode` is `KnownEmbedErrorCode | (string & Record<never, never
 | `EMBEDDED_PAYMENT_METHOD_NOT_REQUIRED` | 2.3.0 | the contract asks for no payment method | none |
 | `EMBEDDED_PAYMENT_METHOD_ALREADY_LINKED` | 2.3.0 | a payment method is already linked | none |
 | `EMBEDDED_SIGNING_REQUEST_CLOSED` | 2.3.0 | the signing request is closed | `{ status: string }` (optional) |
-| `EMBEDDED_CONTRACT_NOT_SIGNABLE` | 2.3.0 | the contract is no longer being signed | `{ status: string }` (optional) |
+| `EMBEDDED_CONTRACT_NOT_SIGNABLE` | 2.3.0 | the contract was never sent for signing | `{ status: string }` (optional) |
+| `EMBEDDED_DECLINE_REASON_REQUIRED`, `EMBEDDED_DECLINE_REASON_TOO_LONG` | next | the server refused a decline's reason (the window always asks one and checks its length first) | none |
+
+A refused signature reports the server's own `errorKey` verbatim, so `code` may be a key outside this table (for example
+`KYC_NOT_VERIFIED`, `SIGNER_ALREADY_ACTED`, `SIGNING_REQUEST_EXPIRED`); without a key it is `SERVER_ERROR`, `NETWORK_ERROR`,
+`RATE_LIMITED`, `UNAUTHORIZED` or `UNKNOWN_ERROR`.
 
 `getSigningFieldProblems(error)` reads the field list of `SIGNING_FIELDS_EMPTY` (null for another code; malformed
 entries are dropped).

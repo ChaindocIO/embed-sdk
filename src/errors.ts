@@ -27,7 +27,12 @@ export const LEGACY_EMBED_ERROR_CODES = [
   "UNKNOWN_ERROR",
 ] as const;
 
-/** Typed refusals new in 2.3.0. */
+/**
+ * Typed refusals the embed names (new in 2.3.0). A refused signature reports the server's own `errorKey` verbatim, so a
+ * code outside this list can still arrive (for example `KYC_NOT_VERIFIED`, `SIGNER_ALREADY_ACTED`, `SIGNING_REQUEST_EXPIRED`);
+ * without a key it is `SERVER_ERROR`, `NETWORK_ERROR`, `RATE_LIMITED`, `UNAUTHORIZED` or `UNKNOWN_ERROR`. A session with
+ * nothing to sign reports `EMBEDDED_SIGNING_REQUEST_CLOSED` (a contract's request ended) or `DOCUMENT_NOT_FOUND`.
+ */
 export const TYPED_EMBED_ERROR_CODES = [
   "NOT_YOUR_TURN",
   "ACCOUNT_READ_ONLY",
@@ -41,6 +46,9 @@ export const TYPED_EMBED_ERROR_CODES = [
   "EMBEDDED_PAYMENT_METHOD_ALREADY_LINKED",
   "EMBEDDED_SIGNING_REQUEST_CLOSED",
   "EMBEDDED_CONTRACT_NOT_SIGNABLE",
+  // A decline's own bounds, as the server says them: the window always asks a reason and checks its length first.
+  "EMBEDDED_DECLINE_REASON_REQUIRED",
+  "EMBEDDED_DECLINE_REASON_TOO_LONG",
 ] as const;
 
 export type LegacyEmbedErrorCode = (typeof LEGACY_EMBED_ERROR_CODES)[number];
