@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - `EMBEDDED_DECLINE_REASON_REQUIRED` and `EMBEDDED_DECLINE_REASON_TOO_LONG` in `TYPED_EMBED_ERROR_CODES`: the signing window
   reports them in `ERROR` when the server refuses a decline's reason. Types only; nothing changes at runtime.
+- `SESSION_REVOKED` and `EMBEDDED_SESSION_IDENTITY_STALE` in `TYPED_EMBED_ERROR_CODES`: the signing window reports them in
+  `ERROR` when a session can no longer be opened (revoked by a re-addressing; its address changed hands). The other login
+  refusals keep their 1.0 codes (`SESSION_EXPIRED`, `SESSION_ALREADY_CONFIRMED`, `SESSION_NOT_FOUND`, …), which the server
+  now sends as its `errorKey`. Types only; nothing changes at runtime.
 
 ### Documentation
 - `EMBEDDED_CONTRACT_NOT_SIGNABLE` means a contract that was never sent for signing (a contract whose request ended is

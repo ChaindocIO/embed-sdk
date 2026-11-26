@@ -49,6 +49,10 @@ export const TYPED_EMBED_ERROR_CODES = [
   // A decline's own bounds, as the server says them: the window always asks a reason and checks its length first.
   "EMBEDDED_DECLINE_REASON_REQUIRED",
   "EMBEDDED_DECLINE_REASON_TOO_LONG",
+  // The link no longer opens: the sender re-addressed the signer and this session was revoked; the session's address now
+  // belongs to a different account than the one it was issued to. Issue a new session.
+  "SESSION_REVOKED",
+  "EMBEDDED_SESSION_IDENTITY_STALE",
 ] as const;
 
 export type LegacyEmbedErrorCode = (typeof LEGACY_EMBED_ERROR_CODES)[number];

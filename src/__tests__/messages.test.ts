@@ -167,6 +167,9 @@ describe("error codes", () => {
       // The window reports the decline's bounds by these (websdk-ui `TYPED_REFUSAL_CODES`).
       "EMBEDDED_DECLINE_REASON_REQUIRED",
       "EMBEDDED_DECLINE_REASON_TOO_LONG",
+      // The login refusals that end the link (websdk-ui piece 16): the server's own keys, verbatim.
+      "SESSION_REVOKED",
+      "EMBEDDED_SESSION_IDENTITY_STALE",
     ]) {
       expect(TYPED_EMBED_ERROR_CODES).toContain(code);
       expect(isTypedEmbedErrorCode(code)).toBe(true);
