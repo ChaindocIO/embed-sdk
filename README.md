@@ -185,10 +185,14 @@ string (`EmbedErrorCode` is `KnownEmbedErrorCode | (string & Record<never, never
 | `EMBEDDED_PAYMENT_METHOD_ALREADY_LINKED` | 2.3.0 | a payment method is already linked | none |
 | `EMBEDDED_SIGNING_REQUEST_CLOSED` | 2.3.0 | the signing request is closed | `{ status: string }` (optional) |
 | `EMBEDDED_CONTRACT_NOT_SIGNABLE` | 2.3.0 | the contract was never sent for signing | `{ status: string }` (optional) |
-| `EMBEDDED_DECLINE_REASON_REQUIRED`, `EMBEDDED_DECLINE_REASON_TOO_LONG` | next | the server refused a decline's reason (the window always asks one and checks its length first) | none |
-| `SESSION_REVOKED` | next | the link no longer opens: the sender re-addressed the signer and this session was revoked; issue a new session | none |
-| `EMBEDDED_SESSION_IDENTITY_STALE` | next | the session's e-mail address now belongs to a different account than the one it was issued to; issue a new session | none |
-| `KYC_REJECTED` | next | the signer was refused identity verification for good: they cannot sign this request (the window shows a final screen; Close ends it). Sent once per session. A resubmission the provider asks for is not this — its widget asks for it | `{ rejectType: "final" }` |
+| `EMBEDDED_DECLINE_REASON_REQUIRED`, `EMBEDDED_DECLINE_REASON_TOO_LONG` | 2.4.0 | the server refused a decline's reason (the window always asks one and checks its length first) | none |
+| `SESSION_REVOKED` | 2.4.0 | the link no longer opens: the sender re-addressed the signer and this session was revoked; issue a new session | none |
+| `EMBEDDED_SESSION_IDENTITY_STALE` | 2.4.0 | the session's e-mail address now belongs to a different account than the one it was issued to; issue a new session | none |
+| `KYC_REJECTED` | 2.4.0 | the signer was refused identity verification for good: they cannot sign this request (the window shows a final screen; Close ends it). Sent once per session. A resubmission the provider asks for is not this — its widget asks for it | `{ rejectType: "final" }` |
+
+A failure to start the identity check that the signer can retry (the network, a server error, too many attempts) is not
+an `ERROR`: the window says it in its identity step and offers Try again, and the session stays open. Refusals the server
+names (an expired session, `KYC_WAITS_FOR_A_UNIT`, ...) still end the flow with `ERROR`.
 
 A refused signature reports the server's own `errorKey` verbatim, so `code` may be a key outside this table (for example
 `KYC_NOT_VERIFIED`, `SIGNER_ALREADY_ACTED`, `SIGNING_REQUEST_EXPIRED`); without a key it is `SERVER_ERROR`, `NETWORK_ERROR`,

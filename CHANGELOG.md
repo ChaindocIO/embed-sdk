@@ -5,7 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2.4.0] - 2026-11-28
+
+Backwards compatible: new error codes are typed, no option or event changes. The package itself changes nothing at
+runtime. The signing window it opens is served from `embed.chaindoc.io`, the same for every SDK version; its one change
+that a page can notice is under "Changed".
+
+### Changed (the signing window)
+- **A failure to start the identity check is no longer an `ERROR`.** When the KYC step cannot start for a reason the
+  signer can retry (the network, a server error, too many attempts, the provider's widget failing), the window says it in
+  its identity step and offers Try again; the session stays open and the page hears nothing. Before, the window ended
+  with an error screen and the page got `ERROR`. Refusals the server names (an expired session, `KYC_WAITS_FOR_A_UNIT`,
+  ...) still end the flow with `ERROR`, and `KYC_REJECTED` is reported as below.
 
 ### Added
 - `EMBEDDED_DECLINE_REASON_REQUIRED` and `EMBEDDED_DECLINE_REASON_TOO_LONG` in `TYPED_EMBED_ERROR_CODES`: the signing window
